@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "ukwest"
+        },
+        "networkInterfaceName": {
+            "value": "az700-winsvr003-nic001"
+        },
+        "enableAcceleratedNetworking": {
+            "value": true
+        },
+        "subnetName": {
+            "value": "az700-winsvr-subnet003"
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/e54ceef5-110c-4231-a9fc-69ac1514c7ab/resourceGroups/az700-rg001/providers/Microsoft.Network/virtualNetworks/az700-winsvr-vnet003"
+        },
+        "virtualMachineName": {
+            "value": "az700-winsvr003"
+        },
+        "virtualMachineComputerName": {
+            "value": "az700-winsvr003"
+        },
+        "virtualMachineRG": {
+            "value": "az700-rg001"
+        },
+        "osDiskType": {
+            "value": "Premium_LRS"
+        },
+        "osDiskDeleteOption": {
+            "value": "Delete"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_DS1_v2"
+        },
+        "nicDeleteOption": {
+            "value": "Delete"
+        },
+        "hibernationEnabled": {
+            "value": false
+        },
+        "adminUsername": {
+            "value": "mmyers"
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        },
+        "enableHotpatching": {
+            "value": false
+        },
+        "securityType": {
+            "value": "TrustedLaunch"
+        },
+        "secureBoot": {
+            "value": true
+        },
+        "vTPM": {
+            "value": true
+        }
+    }
+}
