@@ -15,7 +15,7 @@
             "value": "az700-winsvr-subnet001"
         },
         "virtualNetworkId": {
-            "value": "/subscriptions/e54ceef5-110c-4231-a9fc-69ac1514c7ab/resourceGroups/az700-rg001/providers/Microsoft.Network/virtualNetworks/az700-winsvr-vnet001"
+            "value": "/subscriptions/e54ceef5-110c-4231-a9fc-69ac1514c7ab/resourceGroups/az700-winsvr-rg001/providers/Microsoft.Network/virtualNetworks/az700-winsvr-vnet001"
         },
         "virtualMachineName": {
             "value": "az700-winsvr001"
@@ -24,7 +24,7 @@
             "value": "az700-winsvr001"
         },
         "virtualMachineRG": {
-            "value": "az700-rg001"
+            "value": "az700-winwsvr-rg001"
         },
         "osDiskType": {
             "value": "Premium_LRS"

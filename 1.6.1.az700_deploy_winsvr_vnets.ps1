@@ -1,20 +1,20 @@
 
 # Win Svr Vnet Build #
 
-$AzRgName = "az700-rg001"
+$AzWinSvrRgName = "az700-winsvr-rg001"
 $AzLocation = "ukwest"
 
 # WinSvrRoute Table Build #
 
 $AzWinSvrRtName = "az700-winsvr-rt001"
 
-$AzWinSvrRt = Get-AzRouteTable -name $AzWinSvrRtName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzWinSvrRt = Get-AzRouteTable -name $AzWinSvrRtName -ResourceGroupName $AzWinSvrRgName -ErrorAction SilentlyContinue
 if($null -eq $AzWinSvrRt)
 {
     Write-Host "Building $AzWinSvrRtName..."
     $AzWinSvrRt = New-AzRouteTable `
         -Name $AzWinSvrRtName `
-        -ResourceGroupName $AzRgName `
+        -ResourceGroupName $AzWinSvrRgName `
         -Location $AzLocation
 }
 else
@@ -30,13 +30,13 @@ $AzWinSvrAddPfx = "172.16.1.0/24"
 $AzWinSvrSubnet001Name = "az700-winsvr-subnet001"
 $AzWinSvrSubnet001Addpfx  = "172.16.1.0/29"
 
-$AzWinSvrVnet = Get-AzVirtualNetwork -Name $AzWinSvrVnetName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzWinSvrVnet = Get-AzVirtualNetwork -Name $AzWinSvrVnetName -ResourceGroupName $AzWinSvrRgName -ErrorAction SilentlyContinue
 if ($null -eq $AzWinSvrVnet)
 {
     Write-Host "Building $AzWinSvrVnetName..."
     $AzWinSvrVnet = New-AzVirtualNetwork `
         -Name  $AzWinSvrVnetName `
-        -ResourceGroupName $AzRgName `
+        -ResourceGroupName $AzWinSvrRgName `
         -Location  $AzLocation `
         -AddressPrefix $AzWinSvrAddPfx
 }
@@ -72,13 +72,13 @@ $AzWinSvrAddPfx = "172.16.2.0/24"
 $AzWinSvrSubnet002Name = "az700-winsvr-subnet002"
 $AzWinSvrSubnet002Addpfx  = "172.16.2.0/29"
 
-$AzWinSvrVnet = Get-AzVirtualNetwork -Name $AzWinSvrVnetName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzWinSvrVnet = Get-AzVirtualNetwork -Name $AzWinSvrVnetName -ResourceGroupName $AzWinSvrRgName -ErrorAction SilentlyContinue
 if ($null -eq $AzWinSvrVnet)
 {
     Write-Host "Building $AzWinSvrVnetName..."
     $AzWinSvrVnet = New-AzVirtualNetwork `
         -Name  $AzWinSvrVnetName `
-        -ResourceGroupName $AzRgName `
+        -ResourceGroupName $AzWinSvrRgName `
         -Location  $AzLocation `
         -AddressPrefix $AzWinSvrAddPfx
 }
@@ -113,13 +113,13 @@ $AzWinSvrAddPfx = "172.16.3.0/24"
 $AzWinSvrSubnet003Name = "az700-winsvr-subnet003"
 $AzWinSvrSubnet003Addpfx  = "172.16.3.0/29"
 
-$AzWinSvrVnet = Get-AzVirtualNetwork -Name $AzWinSvrVnetName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzWinSvrVnet = Get-AzVirtualNetwork -Name $AzWinSvrVnetName -ResourceGroupName $AzWinSvrRgName -ErrorAction SilentlyContinue
 if ($null -eq $AzWinSvrVnet)
 {
     Write-Host "Building $AzWinSvrVnetName..."
     $AzWinSvrVnet = New-AzVirtualNetwork `
         -Name  $AzWinSvrVnetName `
-        -ResourceGroupName $AzRgName `
+        -ResourceGroupName $AzWinSvrRgName `
         -Location  $AzLocation `
         -AddressPrefix $AzWinSvrAddPfx
 }

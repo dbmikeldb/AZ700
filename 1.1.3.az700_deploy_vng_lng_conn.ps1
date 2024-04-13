@@ -1,6 +1,6 @@
 
 # IPSec Policy Build #
-$AzRgName = "az700-rg001"
+$AzHubRgName = "az700-hub-rg001"
 $AzLocation = "ukwest"
 
 $IkeEncryption = "AES256"
@@ -26,8 +26,8 @@ $AzVngToLngIpSecPolicy = New-AzIpsecPolicy `
 $AzVngName = "az700-vng001"
 $AzLngName = "az700-lng001"
 
-$AzVng = Get-AzVirtualNetworkGateway -Name $AzVngName -ResourceGroupName $AzRgName
-$AzLng = Get-AzLocalNetworkGateway -Name $AzLngName -ResourceGroupName $AzRgName
+$AzVng = Get-AzVirtualNetworkGateway -Name $AzVngName -ResourceGroupName $AzHubRgName
+$AzLng = Get-AzLocalNetworkGateway -Name $AzLngName -ResourceGroupName $AzHubRgName
 
 #$AzVngBgpIp = $AzVng.BgpSettingsText
 $AzVngToLngConnName = "az700-vng-to-lng-conn001"
@@ -38,13 +38,13 @@ $AzVngToLngEnableBgp = $True
 $AzVngToLngProtocol = "IKEv2"
 
 
-$AzVngToLngConn = Get-AzVirtualNetworkGatewayConnection -Name $AzVngToLngConnName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzVngToLngConn = Get-AzVirtualNetworkGatewayConnection -Name $AzVngToLngConnName -ResourceGroupName $AzHubRgName -ErrorAction SilentlyContinue
 if ($null -eq $AzVngToLngConn)
 {
     Write-Host "Building $AzVngToLngConnName..."
     $AzVngToLngConn = New-AzVirtualNetworkGatewayConnection `
         -Name $AzVngToLngConnName `
-        -ResourceGroupName $AzRgName `
+        -ResourceGroupName $AzHubRgName `
         -Location $AzLocation `
         -VirtualNetworkGateway1 $AzVng `
         -LocalNetworkGateway2 $AzLng `

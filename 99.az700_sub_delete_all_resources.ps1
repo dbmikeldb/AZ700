@@ -1,11 +1,15 @@
-$Rg = "az700-rg001"
 
-$resources = az resource list --resource-group $Rg | ConvertFrom-Json
+$AzLocation = "ukwest"
 
-foreach ($resource in $resources) {
-    az resource delete `
-        --resource-group $Rg `
-        --ids $resource.id `
-        --only-show-errors `
-        --no-wait
+$AzRgs = Get-AzResourceGroup -Location $AzLocation
+
+$AzRgs
+
+foreach ($Azrg in $AzRgs) {
+    foreach ($AzResource in $AzRg) {
+        az resource delete `
+            --resource-group $AzRg `
+            --ids $AzResource.Id `
+            --only-show-errors `
+    }
 }
