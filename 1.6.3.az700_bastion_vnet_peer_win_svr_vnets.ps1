@@ -1,5 +1,5 @@
-$AzRgName = "az700-rg001"
-$AzLocation = "ukwest"
+$AzBastionRgName = "az700-bastion-rg001"
+$AzWinSvrRgName = "az700-winsvr-rg001"
 
 # Bastion Vnet and Win Svr Vnet Peering Build #
 
@@ -8,16 +8,16 @@ $AzWinSvrVnetNames = "az700-winsvr-vnet001", "az700-winsvr-vnet002", "az700-wins
 
 foreach ($AzWinSvrVnetName in $AzWinSvrVnetNames)
 {
-    $AzBastionVnet = Get-AzVirtualNetwork -Name $AzBastionVnetName -ResourceGroupName $AzRgName
-    $AzWinSvrVnet = Get-AzVirtualNetwork -Name $AzWinSvrVnetName -ResourceGroupName $AzRgName
+    $AzBastionVnet = Get-AzVirtualNetwork -Name $AzBastionVnetName -ResourceGroupName $AzBastionRgName
+    $AzWinSvrVnet = Get-AzVirtualNetwork -Name $AzWinSvrVnetName -ResourceGroupName $AzWinSvrRgName
 
     $AzBastionToWinSvrPeeringName = "Peering-to-$AzWinSvrVnetName"
     $AzWinSvrToBastionPeeringName = "Peering-to-$AzBastionVnetName"
 
-    $AzBastionPeerToWinSvr = Get-AzVirtualNetworkPeering -Name $AzBastionToWinSvrPeeringName -VirtualNetworkName $AzBastionVnetName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+    $AzBastionPeerToWinSvr = Get-AzVirtualNetworkPeering -Name $AzBastionToWinSvrPeeringName -VirtualNetworkName $AzBastionVnetName -ResourceGroupName $AzBastionRgName -ErrorAction SilentlyContinue
     if($null -eq $AzBastionPeerToWinSvr)
     {
-        Write-Host "Building $AzBastionToWinSvrPeeringName..."
+        Write-Host "For $AzWinSvrVnetName : Building $AzBastionToWinSvrPeeringName..."
         $AzBastionPeerToWinSvr = Add-AzVirtualNetworkPeering `
             -Name $AzBastionToWinSvrPeeringName `
             -VirtualNetwork $AzBastionVnet `
@@ -26,13 +26,13 @@ foreach ($AzWinSvrVnetName in $AzWinSvrVnetNames)
     }
     else
     {
-        Write-Host "$AzBastionToWinSvrPeeringName exists..."
+        Write-Host "FOr $AzWinSvrVnetName : $AzBastionToWinSvrPeeringName exists..."
     }
 
-    $AzWinSvrPeerToBastion = Get-AzVirtualNetworkPeering -Name $AzWinSvrToBastionPeeringName -VirtualNetworkName $AzWinSvrVnetName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+    $AzWinSvrPeerToBastion = Get-AzVirtualNetworkPeering -Name $AzWinSvrToBastionPeeringName -VirtualNetworkName $AzWinSvrVnetName -ResourceGroupName $AzWinSvrRgName -ErrorAction SilentlyContinue
     if($null -eq $AzWinSvrPeerToBastion)
     {
-        Write-Host "Building $AzWinSvrToBastionPeeringName..."
+        Write-Host "For $AzWinSvrVnetName : Building $AzWinSvrToBastionPeeringName..."
         $AzWinSvrPeerToBastion = Add-AzVirtualNetworkPeering `
             -Name $AzWinSvrToBastionPeeringName `
             -VirtualNetwork $AzWinSvrVnet `
@@ -41,6 +41,6 @@ foreach ($AzWinSvrVnetName in $AzWinSvrVnetNames)
     }
     else
     {
-        Write-Host "$AzWinSvrToBastionPeeringName exists..."
+        Write-Host "For $AzWinSvrVnetName : $AzWinSvrToBastionPeeringName exists..."
     }
 }

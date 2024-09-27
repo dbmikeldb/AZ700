@@ -1,13 +1,14 @@
 
-$AzRgName = "az700-rg001"
+$AzHubRgName = "az700-hub-rg001"
+$AzLocation = "ukwest"
 
 $AzHubVnetName = "az700-hub-vnet001"
 $AzVngSubnetName = "GatewaySubnet"
 $AzVngPipName = "az700-vng-pip001"
 
-$AzHubVnet = Get-AzVirtualNetwork -Name $AzHubVnetName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzHubVnet = Get-AzVirtualNetwork -Name $AzHubVnetName -ResourceGroupName $AzHubRgName -ErrorAction SilentlyContinue
 $AzVngSubnet = Get-AzVirtualNetworkSubnetConfig -Name $AzVngSubnetName -VirtualNetwork $AzHubVnet -ErrorAction SilentlyContinue
-$AzVngPip = Get-AzPublicIpAddress -Name $AzVngPipName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzVngPip = Get-AzPublicIpAddress -Name $AzVngPipName -ResourceGroupName $AzHubRgName -ErrorAction SilentlyContinue
 
 # VPNG IP Config Build #
 $AzVngIPCfgName = "az700-vng-ipcfg001"
@@ -34,13 +35,13 @@ $AzVpnGatewayGeneration = "Generation1"
 $AzVngAsn = "65534"
 $AzVngEnableBgp = $True
 
-$AzVng = Get-AzVirtualNetworkGateway -Name $AzVngName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzVng = Get-AzVirtualNetworkGateway -Name $AzVngName -ResourceGroupName $AzHubRgName -ErrorAction SilentlyContinue
 if($null -eq $AzVng)
 {
    Write-Host "Bulding $AzVngName as a job..."
    $AzVng = New-AzVirtualNetworkGateway `
       -Name $AzVngName `
-      -ResourceGroupName $AzRgName `
+      -ResourceGroupName $AzHubRgName `
       -Location $AzLocation `
       -VpnType $AzVngVpnType `
       -GatewayType $AzVngGwType `

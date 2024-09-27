@@ -1,4 +1,4 @@
-$AzRgName = "az700-rg001"
+$AzBastionRgName = "az700-bastion-rg001"
 $AzLocation = "ukwest"
 
 # Bastion Vnet Build #
@@ -9,13 +9,13 @@ $AzBastionAddPfx = "172.16.255.0/24"
 $AzBastionSubnet001Name = "AzureBastionSubnet"
 $AzBastionSubnet001Addpfx  = "172.16.255.192/26"
 
-$AzBastionVnet = Get-AzVirtualNetwork -Name $AzBastionVnetName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzBastionVnet = Get-AzVirtualNetwork -Name $AzBastionVnetName -ResourceGroupName $AzBastionRgName -ErrorAction SilentlyContinue
 if ($null -eq $AzBastionVnet)
 {
     Write-Host "Building $AzBastionVnetName..."
     $AzBastionVnet = New-AzVirtualNetwork `
         -Name  $AzBastionVnetName `
-        -ResourceGroupName $AzRgName `
+        -ResourceGroupName $AzBastionRgName `
         -Location  $AzLocation `
         -AddressPrefix $AzBastionAddPfx
 }
@@ -45,13 +45,13 @@ $AzBastionVnet | Set-AzVirtualNetwork
 $AzBastionPipName = "az700-bastion-pip001"
 $AzBastionPipSku = "Standard"
 
-$AzBastionPip = Get-AzPublicIpAddress -Name $AzBastionPipName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzBastionPip = Get-AzPublicIpAddress -Name $AzBastionPipName -ResourceGroupName $AzBastionRgName -ErrorAction SilentlyContinue
 if($null -eq $AzBastionPip)
 {
-    Write-Host "Building $AzVngPAzBastionPipNameipName..."
+    Write-Host "Building $AzBastionPipName..."
     $AzBastionPip = New-AzPublicIpAddress `
         -Name  $AzBastionPipName `
-        -ResourceGroupName $AzRgName `
+        -ResourceGroupName $AzBastionRgName `
         -Location $AzLocation `
         -Sku $AzBastionPipSku `
         -AllocationMethod Static
@@ -65,13 +65,13 @@ else
 $AzBastionName = "az700-bastion001"
 $AzBastionSku = "Standard"
 
-$AzBastion = Get-AzBastion -Name $AzBastionName -ResourceGroupName $AzRgName -ErrorAction SilentlyContinue
+$AzBastion = Get-AzBastion -Name $AzBastionName -ResourceGroupName $AzBastionRgName -ErrorAction SilentlyContinue
 if($null -eq $AzBastion)
 {
     Write-Host "Build $AzBastionName..."
     $AzBastion = New-AzBastion `
         -Name $AzBastionName `
-        -ResourceGroupName $AzRgName `
+        -ResourceGroupName $AzBastionRgName `
         -PublicIpAddress $AzBastionPip `
         -VirtualNetwork $AzBastionVnet `
         -Sku $AzBastionSku `
